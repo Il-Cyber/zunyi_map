@@ -14,6 +14,23 @@
 </head>
 <body>
 
+<!-- 导语弹窗（仅首次进入显示） -->
+<div id="intro-mask" style="position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;">
+  <div style="background:var(--bg);border-radius:14px;max-width:480px;width:100%;padding:22px 20px;max-height:85vh;overflow-y:auto;">
+    <h2 style="color:var(--red);font-size:19px;margin:0 0 12px;">红色之路 · 导览</h2>
+    <p style="font-size:14px;line-height:1.8;color:#333;">花茂村原名"荒茅田"，1935年红军长征途经此地，紧邻的苟坝村召开了一次改变红军命运的重要会议。</p>
+    <p style="font-size:14px;line-height:1.8;color:#333;">从苟坝会议陈列馆出发，一路走过会址、毛泽东住室与真理小道、周恩来朱德旧居，最后到马灯馆——5个点位分布在枫香镇这一带，串起1935年3月的那几天。</p>
+    <p style="font-size:14px;line-height:1.8;color:#333;">地图上的标记是示意位置，点开每一个，都能看到那段历史的细节。如果时间有限，建议先看陈列馆，再去会址，最后走一遍真理小道。</p>
+    <p style="font-size:14px;line-height:1.8;color:var(--red);font-weight:600;margin-top:10px;">一条两公里的乡间小路，一次深夜的坚持，改变了红军的行军方向。</p>
+    <button onclick="document.getElementById('intro-mask').remove();" style="width:100%;margin-top:16px;padding:12px;background:var(--red);color:#fff;border:none;border-radius:8px;font-size:16px;">开始探索 →</button>
+  </div>
+</div>
+<script>
+// 只有从点位详情页（point-0x.html）返回时不弹，其他来源都弹
+var fromPoint = document.referrer.indexOf('point-') >= 0;
+if (fromPoint) { document.getElementById('intro-mask').remove(); }
+</script>
+
 <div class="map-topbar">红色之路 · 5 处点位</div>
 <div id="map"></div>
 <a class="map-home" href="index.html">⌂ 主页</a>
@@ -26,42 +43,42 @@
       <a href="point-02.html">
         <span class="when">1935.3 初</span>
         <span class="what">二渡赤水后进驻苟坝</span>
-        <span class="tl-desc">苟坝三面环山，利于红军隐蔽。</span>
+        <span class="tl-desc">中央红军二渡赤水后进驻苟坝一带。</span>
       </a>
     </li>
     <li>
       <a href="point-02.html">
         <span class="when">3.10 凌晨</span>
-        <span class="what">林聂急电，建议攻打打鼓新场</span>
-        <span class="tl-desc">红一军团来电，主张攻打金沙县城。</span>
+        <span class="what">林聂急电，建议进攻打鼓新场</span>
+        <span class="tl-desc">林彪、聂荣臻急电中央，建议进攻打鼓新场，歼灭黔军。</span>
       </a>
     </li>
     <li>
       <a href="point-02.html">
         <span class="when">3.10</span>
         <span class="what">政治局扩大会议，毛泽东一人反对</span>
-        <span class="tl-desc">争论一天，表决通过进攻，毛泽东被免前敌政委。</span>
+        <span class="tl-desc">会议从早开到晚，多数人赞成进攻，毛泽东一人反对。</span>
       </a>
     </li>
     <li>
       <a href="point-03.html">
         <span class="when">3.10 夜</span>
-        <span class="what">深夜提马灯，沿真理小道说服周恩来</span>
-        <span class="tl-desc">走约3里田埂路，劝周恩来缓发命令。</span>
+        <span class="what">深夜提马灯，说服周恩来</span>
+        <span class="tl-desc">毛泽东提马灯步行近两公里，向周恩来分析利弊，说服暂缓发令。</span>
       </a>
     </li>
     <li>
       <a href="point-02.html">
         <span class="when">3.11</span>
-        <span class="what">会议复议，撤销进攻打鼓新场计划</span>
-        <span class="tl-desc">周恩来说服众人，接受毛泽东意见。</span>
+        <span class="what">次日复议，撤销进攻计划</span>
+        <span class="tl-desc">毛泽东的分析得到周恩来、朱德支持，军委电报通告不进攻打鼓新场。</span>
       </a>
     </li>
     <li>
       <a href="point-02.html">
         <span class="when">3.12</span>
-        <span class="what">三人团成立，毛泽东进入军事核心</span>
-        <span class="tl-desc">毛、周、王组成新三人团，全权指挥军事。</span>
+        <span class="what">三人军事小组成立</span>
+        <span class="tl-desc">政治局决定成立周恩来、毛泽东、王稼祥三人军事小组。</span>
       </a>
     </li>
   </ul>
