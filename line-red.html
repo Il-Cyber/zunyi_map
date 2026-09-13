@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>红色之路 · 苟坝花茂</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  html,body{height:100%;overflow:hidden;}
+  body{display:flex;flex-direction:column;background:var(--bg);}
+  #map{flex:0 0 55%;width:100%;position:relative;}
+  .timeline-panel{flex:1;overflow-y:auto;}
+</style>
+</head>
+<body>
+
+<div class="map-topbar">红色之路 · 5 处点位</div>
+<div id="map"></div>
+<a class="map-home" href="index.html">⌂ 主页</a>
+<div class="map-note">点位位置为示意，不作精确导航依据</div>
+
+<div class="timeline-panel">
+  <h3>★ 1935 年苟坝六日</h3>
+  <ul class="tl-list">
+    <li>
+      <a href="point-02.html">
+        <span class="when">1935.3 初</span>
+        <span class="what">二渡赤水后进驻苟坝</span>
+        <span class="tl-desc">苟坝三面环山，利于红军隐蔽。</span>
+      </a>
+    </li>
+    <li>
+      <a href="point-02.html">
+        <span class="when">3.10 凌晨</span>
+        <span class="what">林聂急电，建议攻打打鼓新场</span>
+        <span class="tl-desc">红一军团来电，主张攻打金沙县城。</span>
+      </a>
+    </li>
+    <li>
+      <a href="point-02.html">
+        <span class="when">3.10</span>
+        <span class="what">政治局扩大会议，毛泽东一人反对</span>
+        <span class="tl-desc">争论一天，表决通过进攻，毛泽东被免前敌政委。</span>
+      </a>
+    </li>
+    <li>
+      <a href="point-03.html">
+        <span class="when">3.10 夜</span>
+        <span class="what">深夜提马灯，沿真理小道说服周恩来</span>
+        <span class="tl-desc">走约3里田埂路，劝周恩来缓发命令。</span>
+      </a>
+    </li>
+    <li>
+      <a href="point-02.html">
+        <span class="when">3.11</span>
+        <span class="what">会议复议，撤销进攻打鼓新场计划</span>
+        <span class="tl-desc">周恩来说服众人，接受毛泽东意见。</span>
+      </a>
+    </li>
+    <li>
+      <a href="point-02.html">
+        <span class="when">3.12</span>
+        <span class="what">三人团成立，毛泽东进入军事核心</span>
+        <span class="tl-desc">毛、周、王组成新三人团，全权指挥军事。</span>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<script>
+  window._AMapSecurityConfig = {
+    securityJsCode: "6cbe02bbda506c333cced16e0f6cb3fa"
+  };
+</script>
+<script src="https://webapi.amap.com/maps?v=2.0&key=68ded293c579f4a988670a12291f1a31"></script>
+<script src="js/points.js"></script>
+<script>
+  var map = new AMap.Map('map', {
+    zoom: 15,
+    center: [106.5685, 27.6435]
+  });
+
+  points.forEach(function (p) {
+    var mk = new AMap.Marker({
+      position: p.lnglat,
+      title: p.name,
+      map: map,
+      label: {
+        content: '<div class="poi-label">' + p.name + '</div>',
+        direction: 'bottom',
+        offset: new AMap.Pixel(0, -4)
+      }
+    });
+    mk.on('click', function () {
+      location.href = p.file;
+    });
+  });
+</script>
+</body>
+</html>

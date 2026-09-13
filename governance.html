@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>治理花茂</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .flow{padding:16px 16px 90px;}
+  .flow-intro{font-size:14px;color:var(--muted);margin-bottom:16px;}
+  .flow-node{
+    position:relative;background:#fff;border:1px solid var(--line);
+    border-radius:10px;margin-bottom:0;overflow:hidden;
+  }
+  .flow-node > summary{
+    list-style:none;padding:14px 16px;cursor:pointer;
+    display:flex;align-items:center;gap:12px;
+  }
+  .flow-node > summary::-webkit-details-marker{display:none;}
+  .flow-node .num{
+    flex:0 0 32px;height:32px;border-radius:50%;
+    background:var(--red);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-size:15px;font-weight:bold;
+  }
+  .flow-node .ttl{flex:1;}
+  .flow-node .ttl b{font-size:16px;color:var(--ink);display:block;}
+  .flow-node .ttl span{font-size:13px;color:var(--muted);}
+  .flow-node .arrow{
+    position:absolute;left:31px;bottom:-14px;z-index:1;
+    width:0;height:0;
+    border-left:6px solid transparent;border-right:6px solid transparent;
+    border-top:8px solid var(--tan);
+  }
+  .flow-node[open] .arrow{border-top-color:var(--red);}
+  .flow-body{padding:0 16px 14px;border-top:1px dashed var(--line);}
+  .flow-body h4{font-size:14px;color:var(--red-dark);margin:12px 0 4px;}
+  .flow-body p{font-size:15px;color:var(--ink);}
+  .flow-body ul{padding-left:20px;margin:6px 0;}
+  .flow-body li{font-size:15px;margin-bottom:4px;}
+  .flow-body .tag{
+    display:inline-block;background:var(--bg-soft);color:var(--green);
+    font-size:12px;padding:2px 8px;border-radius:10px;margin:2px 4px 2px 0;
+  }
+  .flow-sub{
+    margin:10px 0;padding:10px 12px;background:var(--bg-soft);
+    border-radius:8px;
+  }
+  .flow-sub b{color:var(--green);}
+  .kpi-row{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;}
+  .kpi-row .k{flex:1;min-width:80px;text-align:center;background:#fff;border:1px solid var(--line);border-radius:8px;padding:8px;}
+  .kpi-row .n{font-size:18px;font-weight:bold;color:var(--red);}
+  .kpi-row .l{font-size:11px;color:var(--muted);}
+</style>
+</head>
+<body>
+<div class="topbar">治理花茂</div>
+
+<div class="flow">
+  <p class="flow-intro">
+    花茂村从过去的"脏乱散"到"中国红色旅游最美红村"，靠的是一套可复制的治理链条。点开每个环节看细节。
+  </p>
+
+  <!-- 治理模式关系图（紧凑版，节点可点跳转） -->
+  <div style="margin:0 -16px 14px;">
+    <svg viewBox="0 0 400 460" width="100%" style="display:block;background:var(--bg-soft);">
+      <defs>
+        <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M0,0 L10,5 L0,10 z" fill="#B9814A"/>
+        </marker>
+        <marker id="arrR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M0,0 L10,5 L0,10 z" fill="#9E2B25"/>
+        </marker>
+        <marker id="arrG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M0,0 L10,5 L0,10 z" fill="#2E6B4F"/>
+        </marker>
+        <marker id="arrGs" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M10,0 L0,5 L10,10 z" fill="#2E6B4F"/>
+        </marker>
+      </defs>
+
+      <line x1="200" y1="58" x2="200" y2="88" stroke="#9E2B25" stroke-width="2" marker-end="url(#arrR)"/>
+      <line x1="175" y1="125" x2="105" y2="175" stroke="#B9814A" stroke-width="1.5" marker-end="url(#arr)"/>
+      <line x1="200" y1="125" x2="200" y2="175" stroke="#B9814A" stroke-width="1.5" marker-end="url(#arr)"/>
+      <line x1="225" y1="125" x2="295" y2="175" stroke="#B9814A" stroke-width="1.5" marker-end="url(#arr)"/>
+      <line x1="105" y1="215" x2="185" y2="290" stroke="#B9814A" stroke-width="1.5" marker-end="url(#arr)"/>
+      <line x1="200" y1="215" x2="200" y2="290" stroke="#B9814A" stroke-width="1.5" marker-end="url(#arr)"/>
+      <line x1="295" y1="215" x2="215" y2="290" stroke="#B9814A" stroke-width="1.5" marker-end="url(#arr)"/>
+      <path d="M 135 309 C 22 309, 22 40, 178 40" stroke="#9E2B25" stroke-width="1.5" fill="none" stroke-dasharray="5,4" marker-end="url(#arrR)"/>
+      <path d="M 386 264 C 396 264, 396 107, 258 107" stroke="#2E6B4F" stroke-width="1.5" stroke-dasharray="4,3" fill="none" marker-end="url(#arrG)"/>
+
+      <!-- 节点1 党建引领（可点） -->
+      <g onclick="goStep('step1')" style="cursor:pointer;">
+        <circle cx="200" cy="40" r="22" fill="#9E2B25"/>
+        <text x="200" y="38" fill="#fff" font-size="12" text-anchor="middle" font-weight="bold">党建</text>
+        <text x="200" y="52" fill="#fff" font-size="10" text-anchor="middle">引领</text>
+      </g>
+
+      <!-- 节点2 网格化（可点） -->
+      <g onclick="goStep('step2')" style="cursor:pointer;">
+        <rect x="145" y="88" width="110" height="38" rx="8" fill="#2E6B4F"/>
+        <text x="200" y="105" fill="#fff" font-size="13" text-anchor="middle" font-weight="bold">网格化治理</text>
+        <text x="200" y="120" fill="#cfe3d8" font-size="9" text-anchor="middle">3大网格·联户长</text>
+      </g>
+
+      <!-- 节点3 三条线（可点） -->
+      <g onclick="goStep('step3')" style="cursor:pointer;">
+        <rect x="55"  y="175" width="100" height="40" rx="8" fill="#fff" stroke="#B9814A" stroke-width="1.5"/>
+        <text x="105" y="193" fill="#7a4a22" font-size="11" text-anchor="middle" font-weight="bold">矛盾化解</text>
+        <text x="105" y="208" fill="#999" font-size="9" text-anchor="middle">四级递进</text>
+      </g>
+      <g onclick="goStep('step3')" style="cursor:pointer;">
+        <rect x="150" y="175" width="100" height="40" rx="8" fill="#fff" stroke="#B9814A" stroke-width="1.5"/>
+        <text x="200" y="193" fill="#7a4a22" font-size="11" text-anchor="middle" font-weight="bold">群众参与</text>
+        <text x="200" y="208" fill="#999" font-size="9" text-anchor="middle">提记办复</text>
+      </g>
+      <g onclick="goStep('step3')" style="cursor:pointer;">
+        <rect x="245" y="175" width="100" height="40" rx="8" fill="#fff" stroke="#B9814A" stroke-width="1.5"/>
+        <text x="295" y="193" fill="#7a4a22" font-size="11" text-anchor="middle" font-weight="bold">乡风文明</text>
+        <text x="295" y="208" fill="#999" font-size="9" text-anchor="middle">评选·村规民约</text>
+      </g>
+
+      <!-- 节点4 产业融合（可点） -->
+      <g onclick="goStep('step4')" style="cursor:pointer;">
+        <rect x="300" y="245" width="85" height="38" rx="8" fill="#2E6B4F" opacity="0.85"/>
+        <text x="342" y="262" fill="#fff" font-size="11" text-anchor="middle" font-weight="bold">产业融合</text>
+        <text x="342" y="276" fill="#cfe3d8" font-size="9" text-anchor="middle">农文旅</text>
+      </g>
+
+      <!-- 节点5 成效（可点） -->
+      <g onclick="goStep('step5')" style="cursor:pointer;">
+        <rect x="135" y="290" width="130" height="38" rx="8" fill="#9E2B25"/>
+        <text x="200" y="307" fill="#fff" font-size="12" text-anchor="middle" font-weight="bold">治理成效</text>
+        <text x="200" y="321" fill="#f3c4c2" font-size="9" text-anchor="middle">71万游客·人均2.97万</text>
+      </g>
+
+      <!-- 图例 -->
+      <g font-size="9" fill="#666">
+        <line x1="20" y1="370" x2="38" y2="370" stroke="#9E2B25" stroke-width="2"/>
+        <text x="42" y="373">引领/反馈</text>
+        <line x1="115" y1="370" x2="133" y2="370" stroke="#B9814A" stroke-width="1.5"/>
+        <text x="137" y="373">运行支撑</text>
+        <line x1="205" y1="370" x2="223" y2="370" stroke="#2E6B4F" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <text x="227" y="373">双向互馈</text>
+      </g>
+      <text x="200" y="400" fill="#999" font-size="10" text-anchor="middle">点击节点 → 查看下方详情</text>
+    </svg>
+  </div>
+  <script>
+    function goStep(id){
+      var el = document.getElementById(id);
+      if(el){ el.open = true; el.scrollIntoView({behavior:'smooth', block:'start'}); }
+    }
+  </script>
+
+  <!-- 节点1：党建引领 -->
+  <details class="flow-node" id="step1">
+    <summary>
+      <div class="num">1</div>
+      <div class="ttl"><b>党建引领</b><span>村"两委"统筹，党员下沉网格</span></div>
+    </summary>
+    <div class="flow-body">
+      <p>基层党组织是连接政策与群众的纽带。花茂村以党建为统领，党员干部常态化走访、开群众会、参与矛盾调解，把组织优势转化为治理效能。</p>
+      <h4>"五为民"工作法</h4>
+      <ul>
+        <li>帮群众想</li>
+        <li>教群众会</li>
+        <li>带群众做</li>
+        <li>促群众富</li>
+        <li>让群众笑</li>
+      </ul>
+      <div class="flow-sub">
+        <b>典型：</b>村委会主任彭龙芬，二十年记满 <b>70 本</b>工作笔记，"铁脚板 + 烂笔头"跑遍全村。
+      </div>
+    </div>
+    <div class="arrow"></div>
+  </details>
+
+  <!-- 节点2：网格化 -->
+  <details class="flow-node" id="step2">
+    <summary>
+      <div class="num">2</div>
+      <div class="ttl"><b>网格化治理</b><span>26 村民组 → 12 网格 → 3 大网格</span></div>
+    </summary>
+    <div class="flow-body">
+      <p>把治理力量下沉到农户，群众有事知道找谁，干部掌握村情更准。</p>
+      <div class="kpi-row">
+        <div class="k"><div class="n">26→12→3</div><div class="l">网格演进</div></div>
+        <div class="k"><div class="n">3 级</div><div class="l">网格长/网格员/联户长</div></div>
+      </div>
+      <h4>治理链条</h4>
+      <p>村 → 大网格 → 小网格 → 联户长 → 群众</p>
+      <div class="flow-sub">
+        <b>作用：</b>信息快速上传下达；政策宣传、农业保险等工作一竿子插到底；网格间资源独立，避免村民组之间抢资源、闹矛盾。
+      </div>
+    </div>
+    <div class="arrow"></div>
+  </details>
+
+  <!-- 节点3：三条运行线 -->
+  <details class="flow-node" id="step3">
+    <summary>
+      <div class="num">3</div>
+      <div class="ttl"><b>三条运行线</b><span>矛盾化解 · 群众参与 · 乡风文明</span></div>
+    </summary>
+    <div class="flow-body">
+      <h4>① 矛盾纠纷四级递进</h4>
+      <p>小事不出组，大事不出村：</p>
+      <span class="tag">联户长先调</span>→<span class="tag">网格员/组长</span>→<span class="tag">网格长+村干部</span>→<span class="tag">法庭/派出所/司法所</span>
+
+      <h4>② 群众参与闭环</h4>
+      <p>"群众提、干部记、分头办、结果复"——早期群众会一次提了 86 件问题，做到件件有落实、事事有回应。</p>
+
+      <h4>③ 乡风文明</h4>
+      <ul>
+        <li>每年评选"孝老敬老""好公婆""好儿媳""团结乡邻"</li>
+        <li>移风易俗：婚嫁彩礼治理，喜事简办，丧事不超三天</li>
+        <li>村规民约由老教师、老干部、老党员参与编写，随时代更新</li>
+      </ul>
+    </div>
+    <div class="arrow"></div>
+  </details>
+
+  <!-- 节点4：产业融合 -->
+  <details class="flow-node" id="step4">
+    <summary>
+      <div class="num">4</div>
+      <div class="ttl"><b>产业融合赋能</b><span>农 + 文 + 旅，治理有了内生动力</span></div>
+    </summary>
+    <div class="flow-body">
+      <h4>农业：小土变大土</h4>
+      <p>高标准农田整合零散土地，引入山东寿光九丰农业，村民拿租金 + 务工工资，"一地多收益"。</p>
+      <h4>文旅：三色融合</h4>
+      <ul>
+        <li><b>绿色农业：</b>"我在花茂有块田"认养，游客可犁地、播种、采摘</li>
+        <li><b>非遗文化：</b>土陶烧制、古法造纸，纸浆压花画做成文创</li>
+        <li><b>红色资源：</b>邻近苟坝会议会址，"红色之家"农家乐讲红军故事</li>
+      </ul>
+    </div>
+    <div class="arrow"></div>
+  </details>
+
+  <!-- 节点5：成效 -->
+  <details class="flow-node" id="step5">
+    <summary>
+      <div class="num">5</div>
+      <div class="ttl"><b>治理成效</b><span>从"脏乱散"到全国示范村</span></div>
+    </summary>
+    <div class="flow-body">
+      <div class="kpi-row">
+        <div class="k"><div class="n">118 万</div><div class="l">2023 年游客人次</div></div>
+        <div class="k"><div class="n">3000 万</div><div class="l">旅游收入（元）</div></div>
+      </div>
+      <div class="kpi-row">
+        <div class="k"><div class="n">2.7 万</div><div class="l">人均可支配收入（元）</div></div>
+        <div class="k"><div class="n">26万→1402万</div><div class="l">村集体经济（元）</div></div>
+      </div>
+      <h4>荣誉</h4>
+      <p>中国红色旅游最美红村 · 全国乡村旅游重点村 · 全国民主法治示范村</p>
+    </div>
+  </details>
+
+  <h3 style="margin:24px 0 10px;font-size:17px;color:var(--ink);border-left:3px solid var(--green);padding-left:10px;">村民最常问的 5 个问题</h3>
+
+  <details class="flow-node">
+    <summary>
+      <div class="num" style="background:var(--green);">Q1</div>
+      <div class="ttl"><b>村里的事谁说了算？</b></div>
+    </summary>
+    <div class="flow-body">
+      <p>花茂村的院坝议事，贵州方言里叫"坝坝会"——就是在村民院子里开的会，村干部和村民围坐一圈，大到产业升级方向、小到路灯修缮，全部倾听收集、逐条梳理，纳入"意见建议清单"。2025年一次院坝会上，村里年轻人提出"花茂有水却不亲水"，村两委一边调研一边发动村民外出取经，最终打造了"浑水摸鱼"等亲水项目。2025年全年，通过这种方式收集办结群众意见建议超过500件。</p>
+      <p class="muted" style="font-size:11px;">来源：人民网《党建调研行》2026.7</p>
+    </div>
+  </details>
+
+  <details class="flow-node">
+    <summary>
+      <div class="num" style="background:var(--green);">Q2</div>
+      <div class="ttl"><b>意见提了没人管怎么办？</b></div>
+    </summary>
+    <div class="flow-body">
+      <p>花茂村把院坝会收集到的意见即时转化为"责任清单"和"行动清单"，每件事有人认领、有时限、有回音。这不是空话——村主任彭龙芬的笔记本上，每件事后都画着勾或圈，标注着"已办""解决""再看"。</p>
+      <p class="muted" style="font-size:11px;">来源：人民网《党建调研行》2026.7（同上一篇）</p>
+    </div>
+  </details>
+
+  <details class="flow-node">
+    <summary>
+      <div class="num" style="background:var(--green);">Q3</div>
+      <div class="ttl"><b>纠纷找谁、多久能办？</b></div>
+    </summary>
+    <div class="flow-body">
+      <p>找综治中心，按"五步"工作法走：</p>
+      <p>第一步<b>强里子</b>，把党建、消防、安全、交通等网格整合成一张"综合网格"，事务一网统管；第二步<b>摸底子</b>，下沉干部、党员、网格员、联户长一起，对夫妻矛盾、邻里纠纷、土地争议进行拉网式排查；第三步<b>过筛子</b>，按红黄蓝三色分类——蓝色村级自行化解，黄色需镇级多部门参与，红色存在极大隐患；第四步<b>开方子</b>，针对具体问题邀请多方"会诊"，靶向化解；第五步<b>拉单子</b>，逐件回访、闭环处置。</p>
+      <p class="muted" style="font-size:11px;">连续10年无上访。来源：贵州法治报《"五步"工作法化解矛盾纠纷》2024.2</p>
+    </div>
+  </details>
+
+  <details class="flow-node">
+    <summary>
+      <div class="num" style="background:var(--green);">Q4</div>
+      <div class="ttl"><b>村里的事记在哪儿？</b></div>
+    </summary>
+    <div class="flow-body">
+      <p>村委会主任彭龙芬从2007年选入村委会开始记笔记，19年累计70本，约100万字，记录了13800多件民生事。翻开笔记本，里面是这样的记录："曹安全，聋哑人，找工作，'急'；任治学，入户路未通，做工作；叶发荣，孩子无电视上网课……"每一件事后都画着勾或圈，标注着"已办""解决""再看"。</p>
+      <p>村委会副主任王野说："有几次遇到村里的历史遗留问题，我们年轻的都不太了解，还去主任家翻看她的笔记"。这70本笔记不仅是工作台账，已经成了村里的"村史"和解决历史问题的"参考资料"。</p>
+      <p class="muted" style="font-size:11px;">来源：遵义晚报/中国经济网转载，2026.4</p>
+    </div>
+  </details>
+
+  <details class="flow-node">
+    <summary>
+      <div class="num" style="background:var(--green);">Q5</div>
+      <div class="ttl"><b>老人没人管找谁？</b></div>
+    </summary>
+    <div class="flow-body">
+      <p>2024年10月，年近八旬的杨某因病瘫痪在床，三个儿子因矛盾无人照料，网格走访及时发现。"赡养老人是法定义务，《民法典》明确规定，成年子女对父母有赡养、扶助和保护的义务。"村"法律明白人"和人民调解员第一时间介入，派出所民警对三兄弟进行批评教育，法律顾问赵定刚结合实际案例现身说法，镇村级调解员耐心疏导矛盾。</p>
+      <p>背后机制是播州区推行的"综治中心+三所联动"（司法所、派出所、律师事务所）协同治理模式。近三年，花茂村累计化解矛盾纠纷126件，解答各类法律咨询300件。</p>
+      <p class="muted" style="font-size:11px;">来源：贵州法治报《法治之花绽花茂》2025.12</p>
+    </div>
+  </details>
+
+  <p class="muted" style="margin-top:20px;font-size:12px;">
+    资料来源：上海交通大学集成电路学院红芯计划暑期社会实践团花茂村调研报告（2026）
+  </p>
+</div>
+
+<nav class="tabbar">
+  <a href="index.html"><span class="ico">⌂</span>首页</a>
+  <a href="line-red.html"><span class="ico">⚑</span>红色之路</a>
+  <a href="industry.html"><span class="ico">◫</span>产业花茂</a>
+  <a class="on" href="governance.html"><span class="ico">☰</span>治理花茂</a>
+  <a href="sources.html"><span class="ico">≡</span>来源</a>
+</nav>
+</body>
+</html>
